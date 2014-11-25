@@ -6,17 +6,46 @@
 
 package chatroom_server;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author TungNguyen
  */
 public class FrameServer extends javax.swing.JPanel {
-
+ private FilesProcess file;
+   private String ConfigFile;
     /**
      * Creates new form FrameServer
      */
     public FrameServer() {
         initComponents();
+        ConfigFile = "Config.ini";
+        file = new FilesProcess();
+        try
+        {
+            FileReader read = file.FileRead(ConfigFile);
+            BufferedReader reader = new BufferedReader(read);
+            String line = reader.readLine();
+            while(line != null)
+            {
+                if(line.startsWith("port"))
+                {
+                    String str[] = line.trim().split("=");
+                    spinPort.setValue(Integer.parseInt(str[1].trim()));
+                }
+                line = reader.readLine();
+            }
+            reader.close();
+            read.close();
+        }
+        catch(Exception ex)
+        {
+            //JOptionPane.showMessageDialog(null, "Lỗi đọc file cấu hình:\n" + ex.getMessage(),"Thông báo",JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     /**
@@ -42,6 +71,11 @@ public class FrameServer extends javax.swing.JPanel {
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton1MouseClicked(evt);
+            }
+        });
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -105,6 +139,26 @@ public class FrameServer extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2MouseClicked
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+                    
+            //            ;Cau hinh cho chat client
+            //            server = Localhost
+            //            port = 2009
+                FileWriter w = file.FileCreate(ConfigFile);
+                w.write(";Do An Java\r\n");
+                w.write(";Bach khoa Ha Noi\r\n");
+                w.write(";Cau hinh cho chat server\r\n");
+                w.write("port = " + spinPort.getValue() + "\r\n");
+                w.close();
+
+                JOptionPane.showMessageDialog(null, "Quá trình lưu thông tin cấu hình thành công!","Thông báo",JOptionPane.INFORMATION_MESSAGE);
+                this.dispose();
+        } catch(Exception ex) {
+            JOptionPane.showMessageDialog(null, "Lỗi đọc file cấu hình:\n" + ex.getMessage(),"Thông báo",JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -121,4 +175,10 @@ public class FrameServer extends javax.swing.JPanel {
     void setTitle(String cấu_hình_kết_nối) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    private void dispose() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+   
 }

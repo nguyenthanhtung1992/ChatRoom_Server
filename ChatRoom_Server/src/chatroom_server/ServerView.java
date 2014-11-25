@@ -6,12 +6,36 @@
 
 package chatroom_server;
 
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.nio.CharBuffer;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author TungNguyen
  */
-public class ServerView extends javax.swing.JFrame {
-    private Object thread;
+public class ServerView extends javax.swing.JFrame implements Readable{
+ 
+    Socket socket;
+    ServerSocket serverSocket;
+    ArrayList userList;
+    Thread thread;
+    int ConnCount=0,Port;
+    InetAddress inet;
+
+    DataInputStream in;
+    DataOutputStream out;
+
+    private FilesProcess file;
+    private String ConfigFile;
 
     /**
      * Creates new form ServerView
@@ -91,9 +115,29 @@ public class ServerView extends javax.swing.JFrame {
         });
 
         jMenu1.setText("File");
+        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu1MouseClicked(evt);
+            }
+        });
+        jMenu1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu1ActionPerformed(evt);
+            }
+        });
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("About");
+        jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu2MouseClicked(evt);
+            }
+        });
+        jMenu2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu2ActionPerformed(evt);
+            }
+        });
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -179,13 +223,119 @@ public class ServerView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnStartActionPerformed
 
     private void btnStartMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStartMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnStartMouseClicked
+       ConfigFile = "Config.ini";
+        file = new FilesProcess();
+        try
+        {
+            FileReader read = file.FileRead(ConfigFile);
+            BufferedReader reader = new BufferedReader(read);
+            String line = reader.readLine();
+            while(line != null)
+            {
+                if(line.startsWith("port"))
+                {
+                    String str[] = line.trim().split("=");
+                    Port = Integer.parseInt(str[1].trim());
+                }
+                line = reader.readLine();
+            }
+            reader.close();
+            read.close();
 
+            try
+            {
+                 //bắt đầu chạy server
+                inet=InetAddress.getLocalHost();
+                serverSocket =new ServerSocket(Port);
+                userList=new ArrayList();
+                thread=new Thread((Runnable) this);
+                thread.start();
+
+                //cập nhật thông tin trong các label
+                lblServerName.setText(inet.getHostName());
+                lblIP.setText("192.168.5.214");
+                lblStatus.setText("Đang nghe ở cổng " + Integer.toString(Port) + " ...");
+
+                //xác lập chế độ hiển thị cho 2 button start và stop
+                btnStart.setEnabled(false);
+                btnStop.setEnabled(true);
+            }
+            catch(Exception ex)
+            {
+                JOptionPane.showMessageDialog(null, "Có lỗi khi khởi động Server:\n" + ex.getMessage(),"Thông báo",JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        catch(Exception ex)
+        {
+            JOptionPane.showMessageDialog(null, "Lỗi đọc file cấu hình.\nBạn vui lòng chọn Menu 'Hệ thống', chọn 'Cấu hình cổng' để thiết lập lại thông số." ,"Thông báo",JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_btnStartMouseClicked
+ private void clickAbout(java.awt.event.MouseEvent evt) {                            
+      Team ifTeam = new Team();
+       ifTeam.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+      ifTeam.show();
+      
+    }     
+    
     private void btnStopMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStopMouseClicked
-       
+     try
+        {
+            if(thread!=null)
+            {
+                //Gửi thông báo cho các client biết server sẽ dừng
+
+                //hủy socket
+                serverSocket.close();
+                
+                //dừng luồng
+                thread.stop();
+                thread=null;
+
+                //reset các arrayList
+                userList.clear();
+
+                //cập nhật lại thông tin hiển thị trên các label
+                lblServerName.setText(inet.getHostName());
+                lblIP.setText("0.0.0.0");
+                lblStatus.setText("Stop...");
+                lblNumberOfConnection.setText("" + 0);
+                ConnCount = 0;
+
+                //xác lập chế độ hiển thị cho 2 button start và stop
+                btnStart.setEnabled(true);
+                btnStop.setEnabled(false);
+            }
+        }
+        catch(Exception ex)
+        {
+            javax.swing.JOptionPane.showMessageDialog(null, " ");
+        }   
        
     }//GEN-LAST:event_btnStopMouseClicked
+
+    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenu1ActionPerformed
+
+    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenu1MouseClicked
+
+    private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenu2ActionPerformed
+
+     private void menuItemServerActionPerformed(java.awt.event.ActionEvent evt) {                                                   
+        FrameServer fc=new FrameServer();
+        fc.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        fc.setTitle("Cấu hình kết nối");
+       
+        fc.show();
+    }       
+    private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenu2MouseClicked
 
     /**
      * @param args the command line arguments
@@ -241,4 +391,10 @@ public class ServerView extends javax.swing.JFrame {
     private javax.swing.JLabel lblServerName;
     private javax.swing.JLabel lblStatus;
     // End of variables declaration//GEN-END:variables
-}
+
+    @Override
+    public int read(CharBuffer cb) throws IOException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+
