@@ -180,5 +180,20 @@ public class FrameServer extends javax.swing.JPanel {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    private static class FilesProcess {
+
+        public FilesProcess() {
+        }
+
+        private FileWriter FileCreate(String ConfigFile) {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+
+        private FileReader FileRead(String ConfigFile) {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+    }
+
    
+    
 }
