@@ -397,29 +397,6 @@ public class ServerView extends javax.swing.JFrame implements Readable{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    private static class Team {
-
-        public Team() {
-        }
-
-        private void show() {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-
-        private void setDefaultCloseOperation(int DISPOSE_ON_CLOSE) {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-    }
-
-    private static class FilesProcess {
-
-        public FilesProcess() {
-        }
-
-        private FileReader FileRead(String ConfigFile) {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-    }
 }
 
 
