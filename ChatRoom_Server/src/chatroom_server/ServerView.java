@@ -426,7 +426,22 @@ protected void DecConnectionCount()
         ConnCount-- ;
         lblNumberOfConnection.setText(Integer.toString(ConnCount));
     }
-    
+ 
+ protected UserClient getUsrClient(String UserName)
+    {
+        //thủ tục tìm socket tương ứng với UserName đầu vào
+        int usrArraySize=userList.size();
+        UserClient client = null;
+        for(int i=0;i<usrArraySize;i++)
+        {
+            client=(UserClient)userList.get(i);
+            if(client.getUserName().equalsIgnoreCase(UserName))
+            {
+                return client;
+            }
+        }
+        return null;
+    }
 }
 
 
