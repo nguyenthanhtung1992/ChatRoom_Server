@@ -22,7 +22,7 @@ import javax.swing.JOptionPane;
  *
  * @author TungNguyen
  */
-public class ServerView extends javax.swing.JFrame implements Readable{
+public class ServerView extends javax.swing.JFrame implements Runnable{
  
     Socket socket;
     ServerSocket serverSocket;
@@ -34,7 +34,7 @@ public class ServerView extends javax.swing.JFrame implements Readable{
     DataInputStream in;
     DataOutputStream out;
 
-    private FilesProcess file;
+    private FileProcess file;
     private String ConfigFile;
 
     /**
@@ -70,6 +70,7 @@ public class ServerView extends javax.swing.JFrame implements Readable{
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
+        jMenuItem_Author = new javax.swing.JMenuItem();
 
         jButton2.setText("jButton2");
 
@@ -138,6 +139,15 @@ public class ServerView extends javax.swing.JFrame implements Readable{
                 jMenu2ActionPerformed(evt);
             }
         });
+
+        jMenuItem_Author.setText("Author");
+        jMenuItem_Author.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem_AuthorActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem_Author);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -224,7 +234,7 @@ public class ServerView extends javax.swing.JFrame implements Readable{
 
     private void btnStartMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStartMouseClicked
        ConfigFile = "Config.ini";
-        file = new FilesProcess();
+        file = new FileProcess();
         try
         {
             FileReader read = file.FileRead(ConfigFile);
@@ -272,9 +282,7 @@ public class ServerView extends javax.swing.JFrame implements Readable{
         
     }//GEN-LAST:event_btnStartMouseClicked
  private void clickAbout(java.awt.event.MouseEvent evt) {                            
-      Team ifTeam = new Team();
-       ifTeam.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-      ifTeam.show();
+      
       
     }     
     
@@ -337,6 +345,13 @@ public class ServerView extends javax.swing.JFrame implements Readable{
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenu2MouseClicked
 
+    private void jMenuItem_AuthorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_AuthorActionPerformed
+        
+        Team team = new Team();
+        team.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        team.show();
+    }//GEN-LAST:event_jMenuItem_AuthorActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -385,6 +400,7 @@ public class ServerView extends javax.swing.JFrame implements Readable{
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem_Author;
     private javax.swing.JLabel lblIP;
     private javax.swing.JLabel lblIP1;
     private javax.swing.JLabel lblNumberOfConnection;
@@ -392,11 +408,25 @@ public class ServerView extends javax.swing.JFrame implements Readable{
     private javax.swing.JLabel lblStatus;
     // End of variables declaration//GEN-END:variables
 
+    
+
     @Override
-    public int read(CharBuffer cb) throws IOException {
+    public void run() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+protected void IncConnectionCount()
+    {
+        //Hien Thi tang ket noi khi co client toi
+        ConnCount++ ;
+        lblNumberOfConnection.setText(Integer.toString(ConnCount));
+    }
+protected void DecConnectionCount()
+    {
+        //khi co user thoat se giam di ket noi
+        ConnCount-- ;
+        lblNumberOfConnection.setText(Integer.toString(ConnCount));
+    }
+    
 }
 
 
