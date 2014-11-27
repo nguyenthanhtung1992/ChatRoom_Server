@@ -124,8 +124,8 @@ public class FrameServer extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -162,13 +162,9 @@ public class FrameServer extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       this.dispose();
-         
-    }//GEN-LAST:event_jButton2ActionPerformed
+        this.dispose();
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1MouseClicked
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
@@ -176,23 +172,27 @@ public class FrameServer extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
-                    
+
             //            Cau hinh cho chat client
             //            server = Localhost
             //            port = 2009
-                FileWriter w = file.FileCreate(ConfigFile);
-                w.write(";Do An Java\r\n");
-                w.write(";Bach khoa Ha Noi\r\n");
-                w.write(";Cau hinh cho chat server\r\n");
-                w.write("port = " + spinPort.getValue() + "\r\n");
-                w.close();
+            FileWriter w = file.FileCreate(ConfigFile);
+            w.write(";Do An Java\r\n");
+            w.write(";Bach khoa Ha Noi\r\n");
+            w.write(";Cau hinh cho chat server\r\n");
+            w.write("port = " + spinPort.getValue() + "\r\n");
+            w.close();
 
-                JOptionPane.showMessageDialog(null, "Quá trình lưu thông tin cấu hình thành công!","Thông báo",JOptionPane.INFORMATION_MESSAGE);
-                this.dispose();
+            JOptionPane.showMessageDialog(null, "Quá trình lưu thông tin cấu hình thành công!","Thông báo",JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
         } catch(Exception ex) {
             JOptionPane.showMessageDialog(null, "Lỗi đọc file cấu hình:\n" + ex.getMessage(),"Thông báo",JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1MouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -208,18 +208,19 @@ public class FrameServer extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrameConfingure.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrameServer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrameConfingure.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrameServer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrameConfingure.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrameServer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrameConfingure.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrameServer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+           
             public void run() {
                 new FrameServer().setVisible(true);
             }
