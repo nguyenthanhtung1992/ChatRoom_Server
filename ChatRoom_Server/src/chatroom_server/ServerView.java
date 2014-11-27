@@ -228,6 +228,8 @@ public class ServerView extends javax.swing.JFrame implements Runnable{
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    
     private void btnStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnStartActionPerformed
@@ -282,7 +284,9 @@ public class ServerView extends javax.swing.JFrame implements Runnable{
         
     }//GEN-LAST:event_btnStartMouseClicked
  private void clickAbout(java.awt.event.MouseEvent evt) {                            
-      
+      Team ifTeam = new Team();
+       ifTeam.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+      ifTeam.show();
       
     }     
     
@@ -412,7 +416,32 @@ public class ServerView extends javax.swing.JFrame implements Runnable{
 
     @Override
     public void run() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    try
+        {
+        //nạp chồng phương thức run của thread
+           while(thread!=null)
+           {
+               //lắng nghe
+                socket = serverSocket.accept();
+                //sendDebug(socket, "Hello word");
+                lblNumberOfConnection.setText("Da co Client Ket noi toi");
+                ChatProcess chatClient = new ChatProcess(socket, this);
+                //khi có client kết nối thì khởi tạo lớp xử lý mới
+                //in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+                //String str= in.readLine();
+                //lblStatus.setText(str);
+                // JOptionPane.showMessageDialog(null, str);
+                thread.sleep(500);
+           }
+        }
+        catch(Exception ex)
+        {
+            JOptionPane.showMessageDialog(null, "Loi server: " + ex.getMessage());
+        }
+    }
+    protected void debug(String msg)
+    {
+        lblStatus.setText(msg);
     }
 protected void IncConnectionCount()
     {
