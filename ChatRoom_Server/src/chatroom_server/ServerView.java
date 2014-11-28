@@ -71,6 +71,7 @@ public class ServerView extends javax.swing.JFrame implements Runnable{
         jMenu1 = new javax.swing.JMenu();
         CauhinhMenu = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        AuthorMenu = new javax.swing.JMenuItem();
 
         jButton2.setText("jButton2");
 
@@ -148,6 +149,15 @@ public class ServerView extends javax.swing.JFrame implements Runnable{
                 jMenu2ActionPerformed(evt);
             }
         });
+
+        AuthorMenu.setText("Author");
+        AuthorMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AuthorMenuActionPerformed(evt);
+            }
+        });
+        jMenu2.add(AuthorMenu);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -360,6 +370,14 @@ public class ServerView extends javax.swing.JFrame implements Runnable{
         fc.show();
     }//GEN-LAST:event_CauhinhMenuActionPerformed
 
+    private void AuthorMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AuthorMenuActionPerformed
+       Team fc=new Team();
+        fc.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        fc.setTitle("Cấu hình kết nối");
+       
+        fc.show();
+    }//GEN-LAST:event_AuthorMenuActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -396,6 +414,7 @@ public class ServerView extends javax.swing.JFrame implements Runnable{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem AuthorMenu;
     private javax.swing.JMenuItem CauhinhMenu;
     private javax.swing.JButton btnStart;
     private javax.swing.JButton btnStop;
