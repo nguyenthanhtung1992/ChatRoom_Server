@@ -7,6 +7,8 @@
 package chatroom_server;
 
 import com.sun.security.auth.login.ConfigFile;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.FileWriter;
 import javax.swing.JOptionPane;
 
@@ -22,7 +24,30 @@ public class FrameCauhinh extends javax.swing.JFrame {
      * Creates new form FrameCauhinh
      */
     public FrameCauhinh() {
-        initComponents();
+         initComponents();
+        ConfigFile = "Config.ini";
+        file = new FileProcess();
+        try
+        {
+            FileReader read = file.FileRead(ConfigFile);
+            BufferedReader reader = new BufferedReader(read);
+            String line = reader.readLine();
+            while(line != null)
+            {
+                if(line.startsWith("port"))
+                {
+                    String str[] = line.trim().split("=");
+                    spinPort.setValue(Integer.parseInt(str[1].trim()));
+                }
+                line = reader.readLine();
+            }
+            reader.close();
+            read.close();
+        }
+        catch(Exception ex)
+        {
+            //JOptionPane.showMessageDialog(null, "Lỗi đọc file cấu hình:\n" + ex.getMessage(),"Thông báo",JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     /**

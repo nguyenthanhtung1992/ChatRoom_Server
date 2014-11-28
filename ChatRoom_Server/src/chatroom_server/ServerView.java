@@ -62,11 +62,11 @@ public class ServerView extends javax.swing.JFrame implements Runnable{
         jLabel7 = new javax.swing.JLabel();
         lblServerName = new javax.swing.JLabel();
         lblIP = new javax.swing.JLabel();
-        lblIP1 = new javax.swing.JLabel();
         lblStatus = new javax.swing.JLabel();
         lblNumberOfConnection = new javax.swing.JLabel();
         btnStart = new javax.swing.JButton();
         btnStop = new javax.swing.JButton();
+        lblIP1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         CauhinhMenu = new javax.swing.JMenuItem();
@@ -91,8 +91,6 @@ public class ServerView extends javax.swing.JFrame implements Runnable{
 
         lblServerName.setText("LocalHost");
 
-        lblIP1.setText("0.0.0.0");
-
         lblStatus.setText("Stop");
 
         lblNumberOfConnection.setText("0");
@@ -115,6 +113,8 @@ public class ServerView extends javax.swing.JFrame implements Runnable{
                 btnStopMouseClicked(evt);
             }
         });
+
+        lblIP1.setText("0.0.0.0");
 
         jMenu1.setText("File");
         jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -192,9 +192,9 @@ public class ServerView extends javax.swing.JFrame implements Runnable{
                                 .addComponent(lblNumberOfConnection, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
                                 .addGap(59, 59, 59))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblIP1, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                                .addComponent(lblIP1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblIP, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE))
+                                .addComponent(lblIP, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblServerName)
                                 .addGap(0, 0, Short.MAX_VALUE)))
@@ -212,18 +212,14 @@ public class ServerView extends javax.swing.JFrame implements Runnable{
                     .addComponent(jLabel4)
                     .addComponent(lblServerName))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel5)
-                        .addComponent(lblIP))
-                    .addComponent(lblIP1, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel6))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(lblStatus)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(lblIP)
+                    .addComponent(lblIP1))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(lblStatus))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
@@ -245,7 +241,7 @@ public class ServerView extends javax.swing.JFrame implements Runnable{
     }//GEN-LAST:event_btnStartActionPerformed
 
     private void btnStartMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStartMouseClicked
-       ConfigFile = "Config.ini";
+      ConfigFile = "Config.ini";
         file = new FileProcess();
         try
         {
@@ -270,12 +266,12 @@ public class ServerView extends javax.swing.JFrame implements Runnable{
                 inet=InetAddress.getLocalHost();
                 serverSocket =new ServerSocket(Port);
                 userList=new ArrayList();
-                thread=new Thread((Runnable) this);
+                thread=new Thread(this);
                 thread.start();
 
                 //cập nhật thông tin trong các label
                 lblServerName.setText(inet.getHostName());
-                lblIP.setText("192.168.5.214");
+                lblIP1.setText("192.168.5.124");
                 lblStatus.setText("Đang nghe ở cổng " + Integer.toString(Port) + " ...");
 
                 //xác lập chế độ hiển thị cho 2 button start và stop
@@ -319,7 +315,7 @@ public class ServerView extends javax.swing.JFrame implements Runnable{
 
                 //cập nhật lại thông tin hiển thị trên các label
                 lblServerName.setText(inet.getHostName());
-                lblIP.setText("0.0.0.0");
+                lblIP1.setText("0.0.0.0");
                 lblStatus.setText("Stop...");
                 lblNumberOfConnection.setText("" + 0);
                 ConnCount = 0;
