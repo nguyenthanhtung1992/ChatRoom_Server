@@ -69,8 +69,8 @@ public class ServerView extends javax.swing.JFrame implements Runnable{
         btnStop = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        CauhinhMenu = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem_Author = new javax.swing.JMenuItem();
 
         jButton2.setText("jButton2");
 
@@ -126,6 +126,15 @@ public class ServerView extends javax.swing.JFrame implements Runnable{
                 jMenu1ActionPerformed(evt);
             }
         });
+
+        CauhinhMenu.setText("Cấu hình");
+        CauhinhMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CauhinhMenuActionPerformed(evt);
+            }
+        });
+        jMenu1.add(CauhinhMenu);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("About");
@@ -139,15 +148,6 @@ public class ServerView extends javax.swing.JFrame implements Runnable{
                 jMenu2ActionPerformed(evt);
             }
         });
-
-        jMenuItem_Author.setText("Author");
-        jMenuItem_Author.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem_AuthorActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jMenuItem_Author);
-
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -339,11 +339,7 @@ public class ServerView extends javax.swing.JFrame implements Runnable{
     }//GEN-LAST:event_jMenu2ActionPerformed
 
      private void menuItemServerActionPerformed(java.awt.event.ActionEvent evt) {                                                   
-        FrameServer fc=new FrameServer();
-        fc.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        fc.setTitle("Cấu hình kết nối");
-       
-        fc.show();
+        
     }       
     private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
         // TODO add your handling code here:
@@ -355,6 +351,14 @@ public class ServerView extends javax.swing.JFrame implements Runnable{
         team.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         team.show();
     }//GEN-LAST:event_jMenuItem_AuthorActionPerformed
+
+    private void CauhinhMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CauhinhMenuActionPerformed
+      FrameCauhinh fc=new FrameCauhinh();
+        fc.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        fc.setTitle("Cấu hình kết nối");
+       
+        fc.show();
+    }//GEN-LAST:event_CauhinhMenuActionPerformed
 
     /**
      * @param args the command line arguments
@@ -392,6 +396,7 @@ public class ServerView extends javax.swing.JFrame implements Runnable{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem CauhinhMenu;
     private javax.swing.JButton btnStart;
     private javax.swing.JButton btnStop;
     private javax.swing.JButton jButton2;
@@ -404,7 +409,6 @@ public class ServerView extends javax.swing.JFrame implements Runnable{
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem_Author;
     private javax.swing.JLabel lblIP;
     private javax.swing.JLabel lblIP1;
     private javax.swing.JLabel lblNumberOfConnection;
