@@ -72,6 +72,7 @@ public class ServerView extends javax.swing.JFrame implements Runnable{
         CauhinhMenu = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         AuthorMenu = new javax.swing.JMenuItem();
+        clickExit = new javax.swing.JMenuItem();
 
         jButton2.setText("jButton2");
 
@@ -158,6 +159,19 @@ public class ServerView extends javax.swing.JFrame implements Runnable{
         });
         jMenu2.add(AuthorMenu);
 
+        clickExit.setText("Exit");
+        clickExit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                clickExitMouseClicked(evt);
+            }
+        });
+        clickExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clickExitActionPerformed(evt);
+            }
+        });
+        jMenu2.add(clickExit);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -185,16 +199,16 @@ public class ServerView extends javax.swing.JFrame implements Runnable{
                             .addComponent(jLabel6)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblNumberOfConnection, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
+                                .addComponent(lblNumberOfConnection, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(59, 59, 59))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblIP1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblIP, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE))
+                                .addComponent(lblIP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblServerName)
                                 .addGap(0, 0, Short.MAX_VALUE)))
@@ -228,7 +242,7 @@ public class ServerView extends javax.swing.JFrame implements Runnable{
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnStart)
                     .addComponent(btnStop))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         pack();
@@ -374,6 +388,14 @@ public class ServerView extends javax.swing.JFrame implements Runnable{
         fc.show();
     }//GEN-LAST:event_AuthorMenuActionPerformed
 
+    private void clickExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clickExitActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_clickExitActionPerformed
+
+    private void clickExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clickExitMouseClicked
+         System.exit(0);
+    }//GEN-LAST:event_clickExitMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -414,6 +436,7 @@ public class ServerView extends javax.swing.JFrame implements Runnable{
     private javax.swing.JMenuItem CauhinhMenu;
     private javax.swing.JButton btnStart;
     private javax.swing.JButton btnStop;
+    private javax.swing.JMenuItem clickExit;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
