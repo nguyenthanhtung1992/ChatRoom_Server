@@ -513,6 +513,41 @@ protected void DecConnectionCount()
         }
         return null;
     }
+ private boolean checkExistUser(String UserName)
+    {
+        //thủ tục kiểm tra sự tồn tại của User trong arraylist
+        if(getUsrClient(UserName)!=null)
+            return true;
+        else
+            return false;
+    }
+ 
+ private void addUser(Socket clientSocket ,String User , String roomName ){
+     
+     if(checkExistUser(User)== false){
+         UserClient userClient = new UserClient(clientSocket, roomName, roomName);
+         userList.add(userClient);
+         
+     }
+ }
+ private void removeUser(String User){
+     UserClient tmpUserClient = getUsrClient(User);
+     if(tmpUserClient != null){
+         userList.remove(tmpUserClient);
+         userList.trimToSize();
+     }
+     
+     
+ }  
+ protected  void setRoomName(String UserName,String RoomName){
+     UserClient tmpObject = getUsrClient(UserName);
+     System.out.println(tmpObject.getRoomName() + "-" + tmpObject.getUserName());
+     tmpObject.setRoomName(RoomName);
+     
+ }
+ 
+ 
+ 
 }
 
 
