@@ -417,9 +417,7 @@ public class ServerView extends javax.swing.JFrame implements Runnable{
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(ServerView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-
-        /* Create and display the form */
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new ServerView().setVisible(true);
@@ -528,9 +526,7 @@ protected void DecConnectionCount()
      if(tmpUserClient != null){
          userList.remove(tmpUserClient);
          userList.trimToSize();
-     }
-     
-     
+     } 
  }  
  protected  void setRoomName(String UserName,String RoomName){
      UserClient tmpObject = getUsrClient(UserName);
@@ -550,7 +546,6 @@ protected void DecConnectionCount()
         }
         catch(Exception ex)
         {
-
         }
     }
    protected void SendMessToClient(Socket clientSocket,String Message)
@@ -559,9 +554,7 @@ protected void DecConnectionCount()
         try
         {
             out = new DataOutputStream(clientSocket.getOutputStream());
-            //out.writeBytes(Message + "\r\n");
             out.writeUTF(Message + "\r\n");
-            //out.flush();
         }
         catch(IOException ex)
         {
@@ -575,8 +568,7 @@ protected void DecConnectionCount()
         //Cập nhật lại danh sách User Từ Server gửi tới
        UserClient usrTmp = null;
         Socket tmpSocket = null;
-        
-       
+         
         //gửi cho tất cả các UserTrong cùng phòng
         for(Object c:userList)
         {
