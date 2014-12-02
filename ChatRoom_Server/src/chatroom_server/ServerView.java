@@ -400,11 +400,7 @@ public class ServerView extends javax.swing.JFrame implements Runnable{
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+        
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -469,10 +465,7 @@ public class ServerView extends javax.swing.JFrame implements Runnable{
                 lblNumberOfConnection.setText("Da co Client Ket noi toi");
                 ChatProcess chatClient = new ChatProcess(socket, this);
                 //khi có client kết nối thì khởi tạo lớp xử lý mới
-                //in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
-                //String str= in.readLine();
-                //lblStatus.setText(str);
-                // JOptionPane.showMessageDialog(null, str);
+              
                 thread.sleep(500);
            }
         }
@@ -545,7 +538,80 @@ protected void DecConnectionCount()
      tmpObject.setRoomName(RoomName);
      
  }
- 
+  protected void UserExit(String UserName,String RoomName)
+    {
+        try
+        {
+            removeUser(UserName);
+            String Msg = "<font face =\"Arial\" size = 14 color = \"#ff0000\">" + UserName + " đã ra khỏi phòng...</font>";
+            SendMessageToRoom(RoomName, UserName, "ROOMCHAT::" + Msg);
+            Msg = getUserListInRoom(RoomName); //lấy danh sách user còn lại trong phòng
+            SendMessageToRoom(RoomName, UserName,"ROOMLIST::" + Msg);
+        }
+        catch(Exception ex)
+        {
+
+        }
+    }
+   protected void SendMessToClient(Socket clientSocket,String Message)
+    {
+        //thủ tục gửi thông điệp cho cửa sổ chính CLient - cửa sổ phòng chát
+        try
+        {
+            out = new DataOutputStream(clientSocket.getOutputStream());
+            //out.writeBytes(Message + "\r\n");
+            out.writeUTF(Message + "\r\n");
+            //out.flush();
+        }
+        catch(IOException ex)
+        {
+        }
+        catch(Exception ex)
+        {
+        }
+        }
+
+    private void SendMessageToRoom(String RoomName, String UserName, String Message) {
+        //Cập nhật lại danh sách User Từ Server gửi tới
+       UserClient usrTmp = null;
+        Socket tmpSocket = null;
+        
+       
+        //gửi cho tất cả các UserTrong cùng phòng
+        for(Object c:userList)
+        {
+            usrTmp = (UserClient)c;
+            if(usrTmp.getRoomName().equalsIgnoreCase(RoomName))
+            {
+                tmpSocket = usrTmp.getSocket();
+                //SendMessToClient(tmpSocket, MessageToSend);
+                if(usrTmp.getUserName().equalsIgnoreCase(UserName) != true)
+                {
+                    //System.out.println(UserName);
+                    SendMessToClient(tmpSocket,Message);
+                }
+            }
+        }
+    }
+
+    private String getUserListInRoom(String RoomName) {
+        
+        //Thủ tục lấy danh sách User Trong Phòng gửi cho Client
+        StringBuilder tmp = new StringBuilder();
+        UserClient usrTmp = null;
+        Socket tmpSocket = null;
+        for(Object c:userList)
+        {
+            usrTmp = (UserClient)c;
+            if(usrTmp.getRoomName().equalsIgnoreCase(RoomName))
+            {
+                tmp.append(usrTmp.getUserName() + "--");
+            }
+        }
+        if(tmp.length() > 3)
+            tmp = tmp.delete(tmp.length()-2,tmp.length()); //Loại bỏ 2 kí tự cuối
+        return tmp.toString();
+    }
  
  
 }
