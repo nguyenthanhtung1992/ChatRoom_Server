@@ -57,11 +57,49 @@ public class ChatProcess  implements Runnable{
                     Index2 = readStr.indexOf("  ");
                     UserName = readStr.substring(Index1, Index2);
                     mFrame.IncConnectionCount();
+                   
+                    mFrame.addUser(clientSocket, UserName, RoomName);
+                    mFrame.SendMessToClient(clientSocket, "Đăng nhập vào hệ thống thành công!");
+                    
                     
                     
                     
                     
                 }
+                if(readStr.startsWith("LOGROOM"))
+                {
+                    
+                    System.out.println(readStr);
+                    Index1 = readStr.indexOf("::") + 2; //xác định khoảng cách - USERNAME
+                    //Index2 = readStr.indexOf("--"); //khoảng cách 2 - ROOMNAME
+                   
+                    RoomName = readStr.substring(Index1);
+                    System.out.println("RoomName: " + RoomName);
+                    mFrame.SendMessToClient(clientSocket, "WELLCOME::<font color = \"red\"><b>Chat Application </b><br/>Chào mừng " + UserName + " đã vào " + RoomName + ".... </font>");
+                    mFrame.setRoomName(UserName, RoomName);
+                    
+                    mFrame.sendRoomListToClient(UserName, RoomName);
+                    
+                }
+                if(readStr.startsWith("ROOMCHAT"))
+                {
+                    Index1 = readStr.indexOf("::") + 2; //xác định vị trí chứa Message
+                
+                    mFrame.SendMessageToRoom(RoomName, UserName, "ROOMCHAT::" + readStr.substring(Index1));
+                }
+                if(readStr.startsWith("LOGOUT"))
+                {
+                    //khi client thoat hoac dong ung dung
+       
+                    mFrame.UserExit(UserName, RoomName);
+                    mFrame.DecConnectionCount();
+                    //giải phóng
+                    clientSocket.close();
+                    clientSocket=null;
+                    thread.stop();
+                    thread = null;
+                }
+               
                 
                 
             }
