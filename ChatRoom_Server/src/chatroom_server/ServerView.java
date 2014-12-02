@@ -366,7 +366,6 @@ public class ServerView extends javax.swing.JFrame implements Runnable{
     }//GEN-LAST:event_jMenu2MouseClicked
 
     private void jMenuItem_AuthorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_AuthorActionPerformed
-        
         Team team = new Team();
         team.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         team.show();
@@ -513,7 +512,7 @@ protected void DecConnectionCount()
             return false;
     }
  
- private void addUser(Socket clientSocket ,String User , String roomName ){
+ protected void addUser(Socket clientSocket ,String User , String roomName ){
      
      if(checkExistUser(User)== false){
          UserClient userClient = new UserClient(clientSocket, roomName, roomName);
@@ -605,7 +604,30 @@ protected void DecConnectionCount()
         return tmp.toString();
     }
  
- 
+  protected void sendRoomListToClient(String UserName,String RoomName)
+    {
+        //Cập nhật lại danh sách User Từ Server gửi tới
+        UserClient usrTmp = null;
+        Socket tmpSocket = null;
+        String tmp = getUserListInRoom(RoomName);
+        String MessageToSend = "ROOMLIST::" + tmp;
+        //gửi cho tất cả các UserTrong cùng phòng
+        for(Object c:userList)
+        {
+            usrTmp = (UserClient)c;
+            if(usrTmp.getRoomName().equalsIgnoreCase(RoomName))
+            {
+                tmpSocket = usrTmp.getSocket();
+                SendMessToClient(tmpSocket, MessageToSend);
+                if(usrTmp.getUserName().equalsIgnoreCase(UserName) == false)
+                {
+                    System.out.println(UserName);
+                    SendMessToClient(tmpSocket, "NEWUSER::<font color = \"red\"> chào mừng " + UserName + " đã vào " + RoomName +".... </font>");
+                }
+            }
+        }
+    }
+    
 }
 
 
