@@ -100,6 +100,23 @@ public class ChatProcess  implements Runnable{
                     thread = null;
                 }
                
+                if(readStr.startsWith("PRIVATE"))
+                {
+                    //Client yêu cầu chat riêng với một client khác
+                    Index1 = readStr.indexOf("::") + 2;
+                    Index2 = readStr.indexOf("--");
+                    String tmpUserToChat = readStr.substring(Index1,Index2);
+                    //javax.swing.JOptionPane.showMessageDialog(null, tmpUserToChat);
+                    String Message = readStr.substring(Index2 + 2); //lấy nội dung tin sau dấu --
+                    //mFrame.SendMessageToRoom(RoomName, UserName, readStr);
+
+                    //gửi đi
+                    mFrame.SendMessagePrivate(UserName,tmpUserToChat, Message, clientSocket);
+                }
+                if(readStr.startsWith(""))
+                {
+
+                }
                 
                 
             }

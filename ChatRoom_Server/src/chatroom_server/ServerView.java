@@ -547,6 +547,21 @@ protected void DecConnectionCount()
         {
         }
     }
+   protected void SendMessagePrivate(String FromUserName, String UserNameToChat,String Message,Socket FromSocket)
+    {
+        if(checkExistUser(UserNameToChat)==false)
+        {
+            //Nếu User muốn chát riêng đã thoát thì thống báo cho Client biết
+            UserClient tmp = getUsrClient(UserNameToChat);
+            //JOptionPane.showMessageDialog(null, tmp.getUserName());
+            SendMessToClient(FromSocket, "PRIVATE::" + UserNameToChat + "--" + "Nickname " + UserNameToChat + "không còn online trong hệ thống. Bạn ko thể tiếp tục chát với người này!");
+        }
+        else
+        {
+            UserClient tmpObject = getUsrClient(UserNameToChat);
+            SendMessToClient(tmpObject.getSocket(), "PRIVATE::" + FromUserName + "--" + Message);
+        }
+    }
    protected void SendMessToClient(Socket clientSocket,String Message)
     {
         //thủ tục gửi thông điệp cho cửa sổ chính CLient - cửa sổ phòng chát
@@ -563,7 +578,7 @@ protected void DecConnectionCount()
         }
         }
 
-    private void SendMessageToRoom(String RoomName, String UserName, String Message) {
+    protected void SendMessageToRoom(String RoomName, String UserName, String Message) {
         //Cập nhật lại danh sách User Từ Server gửi tới
        UserClient usrTmp = null;
         Socket tmpSocket = null;
