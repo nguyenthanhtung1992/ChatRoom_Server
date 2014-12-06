@@ -47,7 +47,8 @@ public class ChatProcess  implements Runnable{
 
     @Override
     public void run() {
-        while(thread != null){
+        while(thread != null)
+        {
             
             try{
                 readStr = in.readUTF();
@@ -56,6 +57,7 @@ public class ChatProcess  implements Runnable{
                     Index1 = readStr.indexOf("::") +2;
                     Index2 = readStr.indexOf("  ");
                     UserName = readStr.substring(Index1, Index2);
+                      RoomName = readStr.substring(Index2 + 2);
                     mFrame.IncConnectionCount();
                    
                     mFrame.addUser(clientSocket, UserName, RoomName);
@@ -99,10 +101,37 @@ public class ChatProcess  implements Runnable{
                     thread.stop();
                     thread = null;
                 }
+                if(readStr.startsWith("OUTROOM")){
+                    mFrame.UserOutRoom(UserName, RoomName);
+                }
+                if(readStr.startsWith("PRIVATE"))
+                {
+                    //Client yêu cầu chat riêng với một client khác
+                    Index1 = readStr.indexOf("::") + 2;
+                    Index2 = readStr.indexOf("--");
+                    String tmpUserToChat = readStr.substring(Index1,Index2);
+                    //javax.swing.JOptionPane.showMessageDialog(null, tmpUserToChat);
+                    String Message = readStr.substring(Index2 + 2); //lấy nội dung tin sau dấu --
+                   
+
+                    //gửi đi
+                    mFrame.SendMessagePrivate(UserName,tmpUserToChat, Message, clientSocket);
+                }
+                  if(readStr.startsWith(""))
+                {
+
+                }       
+                
                 
             }
             catch(Exception e){
                 
+                mFrame.UserExit(UserName, RoomName);
+                mFrame.DecConnectionCount(); //giam gia trị bien dem so ket nói
+                clientSocket=null;
+                thread.stop();
+                thread = null;
+                break;
             }
         }
         
