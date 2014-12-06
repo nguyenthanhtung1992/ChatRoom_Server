@@ -516,7 +516,7 @@ protected void DecConnectionCount()
  protected void addUser(Socket clientSocket ,String User , String roomName ){
      
      if(checkExistUser(User)== false){
-         UserClient userClient = new UserClient(clientSocket, roomName, roomName);
+         UserClient userClient = new UserClient(clientSocket, User, roomName);
          userList.add(userClient);
          
      }
