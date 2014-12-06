@@ -450,7 +450,8 @@ public class ServerView extends javax.swing.JFrame implements Runnable{
     
 
     @Override
-    public void run() {
+    public void run() 
+    {
     try
         {
         //nạp chồng phương thức run của thread
@@ -628,6 +629,28 @@ protected void DecConnectionCount()
             }
         }
     }
+   protected void UserOutRoom(String UserName,String RoomName)
+    {
+        try
+        {
+            //khi user thoat khoi phong
+            UserClient tmpObject = getUsrClient(UserName);
+            tmpObject.setRoomName("Unknown");
+
+            String Msg = "<font face =\"Arial\" color = \"#ff0000\">" + UserName + " đã ra khỏi phòng...</font>";
+            SendMessageToRoom(RoomName, UserName, "ROOMCHAT::" + Msg);
+            //sendRoomListToClient(UserName, RoomName);
+            Msg = getUserListInRoom(RoomName); //lấy danh sách user còn lại trong phòng
+            //sendRoomListToClient(UserName, RoomName);
+            SendMessageToRoom(RoomName, UserName,"ROOMLIST::" + Msg);
+
+        }
+        catch(Exception ex)
+        {
+
+        }
+    }
+  
     
 }
 
