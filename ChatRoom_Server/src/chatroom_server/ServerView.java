@@ -102,11 +102,6 @@ public class ServerView extends javax.swing.JFrame implements Runnable{
                 btnStartMouseClicked(evt);
             }
         });
-        btnStart.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnStartActionPerformed(evt);
-            }
-        });
 
         btnStop.setText("Stop");
         btnStop.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -118,16 +113,6 @@ public class ServerView extends javax.swing.JFrame implements Runnable{
         lblIP1.setText("0.0.0.0");
 
         jMenu1.setText("File");
-        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu1MouseClicked(evt);
-            }
-        });
-        jMenu1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu1ActionPerformed(evt);
-            }
-        });
 
         CauhinhMenu.setText("Cấu hình");
         CauhinhMenu.addActionListener(new java.awt.event.ActionListener() {
@@ -140,16 +125,6 @@ public class ServerView extends javax.swing.JFrame implements Runnable{
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("About");
-        jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu2MouseClicked(evt);
-            }
-        });
-        jMenu2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu2ActionPerformed(evt);
-            }
-        });
 
         AuthorMenu.setText("Author");
         AuthorMenu.addActionListener(new java.awt.event.ActionListener() {
@@ -160,11 +135,6 @@ public class ServerView extends javax.swing.JFrame implements Runnable{
         jMenu2.add(AuthorMenu);
 
         clickExit.setText("Exit");
-        clickExit.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                clickExitMouseClicked(evt);
-            }
-        });
         clickExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 clickExitActionPerformed(evt);
@@ -250,10 +220,6 @@ public class ServerView extends javax.swing.JFrame implements Runnable{
 
     
     
-    private void btnStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnStartActionPerformed
-
     private void btnStartMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStartMouseClicked
       ConfigFile = "Config.ini";
         file = new FileProcess();
@@ -285,7 +251,7 @@ public class ServerView extends javax.swing.JFrame implements Runnable{
 
                 //cập nhật thông tin trong các label
                 lblServerName.setText(inet.getHostName());
-                lblIP1.setText("192.168.5.124");
+                lblIP1.setText(inet.getHostAddress());
                 lblStatus.setText("Đang nghe ở cổng " + Integer.toString(Port) + " ...");
 
                 //xác lập chế độ hiển thị cho 2 button start và stop
@@ -303,12 +269,7 @@ public class ServerView extends javax.swing.JFrame implements Runnable{
         }
         
     }//GEN-LAST:event_btnStartMouseClicked
- private void clickAbout(java.awt.event.MouseEvent evt) {                            
-      Team ifTeam = new Team();
-       ifTeam.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-      ifTeam.show();
-      
-    }     
+    
     
     private void btnStopMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStopMouseClicked
      try
@@ -345,30 +306,9 @@ public class ServerView extends javax.swing.JFrame implements Runnable{
         }   
        
     }//GEN-LAST:event_btnStopMouseClicked
-
-    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenu1ActionPerformed
-
-    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenu1MouseClicked
-
-    private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenu2ActionPerformed
-
-     private void menuItemServerActionPerformed(java.awt.event.ActionEvent evt) {                                                   
-        
-    }       
-    private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenu2MouseClicked
-
+     
     private void jMenuItem_AuthorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_AuthorActionPerformed
-        Team team = new Team();
-        team.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        team.show();
+
     }//GEN-LAST:event_jMenuItem_AuthorActionPerformed
 
     private void CauhinhMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CauhinhMenuActionPerformed
@@ -390,10 +330,6 @@ public class ServerView extends javax.swing.JFrame implements Runnable{
     private void clickExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clickExitActionPerformed
         this.dispose();
     }//GEN-LAST:event_clickExitActionPerformed
-
-    private void clickExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clickExitMouseClicked
-         System.exit(0);
-    }//GEN-LAST:event_clickExitMouseClicked
 
     /**
      * @param args the command line arguments
